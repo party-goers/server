@@ -4,7 +4,7 @@ class UserController
 {
     static test(req,res)
       {
-
+        res.send('hello user connected')
       }
     
 
