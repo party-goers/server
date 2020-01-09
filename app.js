@@ -20,10 +20,6 @@ app.use(cors())
 app.use(express.json())
 app.use(express.urlencoded({ extended:true }))
 app.use(require('morgan')('combined'))
-<<<<<<< HEAD
-=======
-app.use('/', routes)
->>>>>>> get weather data
 
 app.use(require('./router'))
 app.use(require('./middleware/errorHandler'))

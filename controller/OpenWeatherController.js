@@ -3,20 +3,20 @@ const axios = require('axios');
 class OpenWeatherController{
     static  cityWeather(req,res,next){
         const paramDate = req.params.date
-        axios.get(`http://api.openweathermap.org/data/2.5/forecast?q=${req.params.cityname}&APPID=c2cbe47e5236ed05b5c314c584da9bef`)
+        axios.get(`http://api.openweathermap.org/data/2.5/forecast?q=${req.params.cityname}&APPID=${process.env.OPENWEATHER_API}`)
         .then(({data})=>{
             if(data){
-                let weatherDesc=null
+                let weatherData = null
                 const allWeatherData = data.list
-                for(let weather of allWeatherData){
-                    let completeDate = weather.dt_txt
+                for(let i=0;i<allWeatherData.length;i++){
+                    let completeDate = allWeatherData[i].dt_txt
                     let date = completeDate.split(' ')
                     if(date[0]==paramDate){
-                        weatherDesc = weather.weather[0].description
+                        weatherData = allWeatherData[1].weather[0].description
                     }
                 }
                 res.json({
-                    weather: weatherDesc
+                    weather: weatherData
                 })
             }else{
                 res.json({
