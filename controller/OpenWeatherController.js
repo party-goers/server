@@ -3,7 +3,8 @@ const axios = require('axios');
 class OpenWeatherController{
     static  cityWeather(req,res,next){
         const paramDate = req.params.date
-        axios.get(`http://api.openweathermap.org/data/2.5/forecast?q=${req.params.cityname}&APPID=${process.env.OPENWEATHER_API}`)
+        const url = `http://api.openweathermap.org/data/2.5/forecast?q=${req.params.cityname}&APPID=${process.env.OPENWEATHER_API}`
+        axios.get(url)
         .then(({data})=>{
             if(data){
                 let weatherData = null
