@@ -7,7 +7,6 @@ if(process.env.NODE_ENV === 'development')
 const express = require('express')
 const app = express()
 const cors = require('cors')
-const routes = require('./router')
 
 app.use(cors())
 app.use(express.json())
@@ -17,6 +16,6 @@ app.use(require('morgan')('combined'))
 app.use(require('./router'))
 app.use(require('./middleware/errorHandler'))
 
-app.use('/',routes)
+
 
 module.exports = app

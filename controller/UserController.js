@@ -1,4 +1,6 @@
 const User = require('../model/User')
+const customPass = require('../helper/randomPassword')
+const {generateToken} = require('../helper/jwt')
 
 class UserController
 {
@@ -9,15 +11,16 @@ class UserController
     
 
     static googleSignIn(req,res,next){
-          const { email } = req.decoded
+      const { email, name } = req.decoded
           User.findOne({email})
           .then(user =>{
               if(user){
                   return user
               }else{
                   return User.create({
+                      username: name,
                       email : email,
-                      password: email + process.env.CUSTOM_PASS
+                      password: customPass
                   })
               }
           })
