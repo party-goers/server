@@ -3,7 +3,7 @@ const secret = process.env.JWT_SECRET
 
 function generateToken( payload )
 {
-    return jwt.sign( payload )
+    return jwt.sign( payload , secret)
 }
 
 function verifyToken( token )

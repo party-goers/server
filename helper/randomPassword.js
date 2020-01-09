@@ -10,5 +10,4 @@ module.exports = ()=>{
       }
     // console.log(randomPassword);
     return randomPassword
-
 }
