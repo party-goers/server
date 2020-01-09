@@ -9,8 +9,24 @@ const userSchema = new Schema({
     },
     email: {
         type: String,
-        required: [true, 'email is required'],
-        unique: true
+        required : [true, 'you must enter your email'],
+        match: [/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/, 'please enter a valid email'],
+        validate : {
+            validator : function(v) {
+                return User.findOne({
+                    email : v
+                }).then(user => {
+                    if (user) {
+                        return false
+                    } else {
+                        return true
+                    }
+                }).catch(err => {
+                    console.log(err)
+                })
+            },
+            msg : `email already registered`
+        }
     },
     password: {
         type: String,
