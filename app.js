@@ -6,7 +6,11 @@ if(process.env.NODE_ENV === 'development')
 
 const express = require('express')
 const app = express()
+<<<<<<< HEAD
 const cors = require('cors')
+=======
+const routes = require('./router')
+>>>>>>> weather
 
 app.use(cors())
 app.use(express.json())
