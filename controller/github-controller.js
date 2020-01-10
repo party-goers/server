@@ -8,7 +8,7 @@ class GithubController {
       params: {
         client_id: process.env.GITHUB_CLIENT_ID,
         client_secret: process.env.GITHUB_CLIENT_SECRET,
-        code: req.query.code
+        code: req.body.code
       },
       headers: {
         Accept: 'application/json'
@@ -24,8 +24,7 @@ class GithubController {
         })
       })
       .then(({ data }) => {
-        // res.json({ access_token, email: data[0].email })
-        res.redirect(302, `http://localhost:8080/github/callback.html?%20${access_token}%20${data[0].email}`)
+        res.json({ access_token, email: data[0].email })
       })
       .catch(next)
   }
