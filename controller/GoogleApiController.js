@@ -13,11 +13,11 @@ class GoogleApiController
       {
         const { venueName, lat, long } = req.body
         axios({
-          method:'post',
+          method:'get',
           url: `https://maps.googleapis.com/maps/api/place/textsearch/json?key=${process.env.GMAP_API}&input=${venueName}&inputType=textquery&location=${lat},${long}`
         })
         .then(result=>{
-            res.status(200).json(result.data.results[0].place_id)
+            res.status(200).json({ placeId : result.data.results[0].place_id})
         })
         .catch(err=>{
             next(err)
