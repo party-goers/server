@@ -4,6 +4,7 @@ const authorization = require('../middleware/authorization')
 
 
 router.get('/test', GoogleApiController.test)
+router.post('/', GoogleApiController.getPlaceId)
 
 
 module.exports = router
