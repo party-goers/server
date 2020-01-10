@@ -17,5 +17,4 @@ app.use(require('./router'))
 app.use(require('./middleware/errorHandler'))
 
 
-
 module.exports = app
