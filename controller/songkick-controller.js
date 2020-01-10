@@ -1,5 +1,5 @@
 const axios = require('axios')
-const { getCurrentDate, getFiveDaysLater } = require('../helper/song-kick-helper')
+const { getCurrentDate, getFiveDaysLater, getPhoto, urlPhoto } = require('../helper/song-kick-helper')
 
 class SongkickController {
   static getEventsFromRegisteredLocation(req, res, next) {
@@ -11,13 +11,27 @@ class SongkickController {
       seoul: 30784,
     }
 
+    let response = null
+
     const location = areaId[req.params.location]
 
     if (!location) return next({ name: 'SongkickError', message: 'Location not found' })
 
     axios.get(`https://api.songkick.com/api/3.0/metro_areas/${location}/calendar.json?apikey=${process.env.SONGKICK_API}&min_date=${getCurrentDate()}&max_date=${getFiveDaysLater()}`)
       .then(({ data }) => {
-        res.json(data)
+        let photos = data.resultsPage.results.event.map(event => {
+          return getPhoto(event.uri)
+        })
+        response = data
+        return Promise.all(photos)
+      })
+      .then(results => {
+        response.resultsPage.results.event = response.resultsPage.results.event.map((event, i) => {
+          event.imgSrc = urlPhoto(results[i])
+          return event
+        })
+
+        res.json(response)
       })
       .catch(next)
   }
@@ -33,7 +47,19 @@ class SongkickController {
         }
       })
       .then(({ data }) => {
-        res.json(data)
+        let photos = data.resultsPage.results.event.map(event => {
+          return getPhoto(event.uri)
+        })
+        response = data
+        return Promise.all(photos)
+      })
+      .then(results => {
+        response.resultsPage.results.event = response.resultsPage.results.event.map((event, i) => {
+          event.imgSrc = urlPhoto(results[i])
+          return event
+        })
+
+        res.json(response)
       })
       .catch(next)
   }
