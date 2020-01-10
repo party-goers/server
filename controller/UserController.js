@@ -33,6 +33,7 @@ class UserController
                   message: 'login success',
                   token: token,
                   user: {
+                      username : user.username,
                       email : user.email
                   }
               })

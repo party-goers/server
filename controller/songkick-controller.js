@@ -15,7 +15,7 @@ class SongkickController {
 
     const location = areaId[req.params.location]
 
-    if (!location) return next({ name: 'SongkickError', message: 'Location not found' })
+    if (!location) return next({ name: 'SongKickError', message: 'Location not found' })
 
     axios.get(`https://api.songkick.com/api/3.0/metro_areas/${location}/calendar.json?apikey=${process.env.SONGKICK_API}&min_date=${getCurrentDate()}&max_date=${getFiveDaysLater()}`)
       .then(({ data }) => {

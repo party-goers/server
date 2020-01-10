@@ -4,82 +4,48 @@ You can use this application to search for events held in many city around the w
 
 ## 1. User
 
-#### a. User Register
+#### a. User Login - Google Oauth2
 
 - **Endpoint**
 
   ```http
-  POST /users/register
+  POST /users/googleSignIn
   ```
 
-- **Body**
+- **Headers**
 
-  username : String **(Required)**
+  id_token: String **(Required)**
 
-  email : String (**Required**)
-
-  password: String **(Required)**
+  
 
 - **Response**
 
-  ```javascript
-  {
-      "id": "5de0471a48b33b2ec6bd94f6",
-      "username": "nezuko",
-      "email": "nezuko@gmail.com",
-      "currency": "IDR"
-  }
-  ```
+```javascript
+{
+    "message": "login success",
+    "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjVlMTgxOGIzMjNmYzQxNGZiODRjMjZmZSIsImlhdCI6MTU3ODYzODQ1NH0.RN2XpUvLh7iXneGskGkKhMynb6cu8KLQSHO3-sjKnCk",
+    "user": {
+        "username": "zen chou",
+        "email": "zenchouu@gmail.com"
+    }
+}
+```
+
+
 
 - **Error**
 
-  - Error Empty Username
+  - Error Empty Token
 
     ```javascript
     {
-        "code": 400,
-        "message": [
-            "name field required to be filled"
-        ]
+        "status": 406,
+        "message": "token not provided"
     }
     ```
+    
 
-  - Error Empty Email
-
-    ```javascript
-    {
-        "code": 400,
-        "message": [
-            "email field required to be filled"
-        ]
-    }
-    ```
-
-  - Errror Empty Password
-
-    ```javascript
-    {
-        "code": 400,
-        "message": [
-            "password field required to be filled"
-        ]
-    }
-    ```
-
-  - Error Validation Email Unique
-
-    ```javascript
-    {
-        "code": 400,
-        "message": [
-            "Email is already registered!"
-        ]
-    }
-    ```
-
-
-
-#### b. User Login
+#### b. User Login - GitHub Login
 
 - **Endpoint**
 
@@ -89,29 +55,20 @@ You can use this application to search for events held in many city around the w
 
 - **Body**
 
-  email: String **(Required)**
+  venueName: String **(Required)**
 
-  password: String **(Required)**
+  lat: String 
 
-- **Body**
-
-  email: String **(Required)**
-
-  password: String **(Required)**
+  long: String
 
 - **Response**
 
   ```javascript
   {
-      "user": {
-          "username": "nezuko",
-          "email": "nezuko@gmail.com",
-          "currency": "IDR"
-      },
-      "token": "access_token"
+      "placeId": "ChIJyxMqeAKLaS4R9u7R1xkzRyw"
   }
   ```
-
+  
 - **Error**
 
   - Error Email Not Register in Database
@@ -132,41 +89,16 @@ You can use this application to search for events held in many city around the w
     }
     ```
 
-#### c. Google Oauth2
+
+
+## 2. Google Map
+
+#### a. Find Place Id
 
 - **Endpoint**
 
   ```http
-  POST /signin/google
-  ```
-
-- **Body**
-
-  idToken: String **(Required)**
-
-- **Response**
-
-  ```javascript
-  {
-  	"user": {
-  			"email": "danangbahari89@gmail.com",
-  			"username": "Danang Putra",
-  			"currency": "IDR"
-  	},
-  	"token": "access_token"
-  }
-  ```
-
-  
-
-## 2. Zomato
-
-#### a. Search Restaurant By Keyword
-
-- **Endpoint**
-
-  ```http
-  POST /api/zomato/search
+  POST /googleMap/
   ```
 
   

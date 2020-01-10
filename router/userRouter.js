@@ -1,6 +1,6 @@
 const router = require('express').Router()
 const UserController = require('../controller/UserController')
-const googleSignIn = require('../helper/gSignIn')
+const googleSignIn = require('../middleware/gSignIn')
 
 router.get('/test', UserController.test)
 

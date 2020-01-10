@@ -10,7 +10,7 @@ module.exports = (err,req,res,next)=>{
 
     switch (err.name) {
         case 'ValidationError':
-            status: 406
+            status = 406
             break;
 
         case 'MongoError':
@@ -18,11 +18,14 @@ module.exports = (err,req,res,next)=>{
 
         case 'SongKickError':
             status = 400
-            message = err.message
+            break;
 
         default:
             break;
     }
 
-    res.status(status).json(message)
+    res.status(status).json({
+        status,
+        message
+    })
 }
