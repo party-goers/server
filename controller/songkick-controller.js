@@ -37,6 +37,8 @@ class SongkickController {
   }
 
   static getEventAtLocation(req, res, next) {
+    let response = null
+    
     axios.get(`https://api.songkick.com/api/3.0/search/locations.json?query=${req.params.location}&apikey=${process.env.SONGKICK_API}`)
       .then(({ data }) => {
         if (!data.resultsPage.results.location) {
