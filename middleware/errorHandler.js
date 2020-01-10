@@ -10,7 +10,7 @@ module.exports = (err,req,res,next)=>{
 
     switch (err.name) {
         case 'ValidationError':
-
+            status: 406
             break;
 
         case 'MongoError':
