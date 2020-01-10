@@ -3,6 +3,7 @@ const axios = require('axios')
 class GithubController {
   static callback(req, res, next) {
     let access_token = null
+    let user_email = null
 
     axios.post(`https://github.com/login/oauth/access_token`, {}, {
       params: {
@@ -24,7 +25,20 @@ class GithubController {
         })
       })
       .then(({ data }) => {
-        res.json({ access_token, email: data[0].email })
+        user_email = data[0].email
+        return axios.get('https://api.github.com/user', {
+          headers: {
+            Accept: 'application/vnd.github.v3+json',
+            Authorization: `token ${access_token}`
+          }
+        })
+      })
+      .then(({ data }) => {
+        res.json({
+          email: user_email,
+          token: access_token,
+          username: data.login
+        })
       })
       .catch(next)
   }
