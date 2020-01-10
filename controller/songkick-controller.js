@@ -2,7 +2,7 @@ const axios = require('axios')
 const { getCurrentDate, getFiveDaysLater } = require('../helper/song-kick-helper')
 
 class SongkickController {
-  static getEventsFromRegisteredCountry(req, res, next) {
+  static getEventsFromRegisteredLocation(req, res, next) {
     const areaId = {
       coachella: 11086,
       jakarta: 29154,
